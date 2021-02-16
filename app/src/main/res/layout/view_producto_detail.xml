@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPokemonFront"
+        app:layout_constraintEnd_toStartOf="@id/ivPokemonBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_dummy_poke"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:adjustViewBounds="true" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPokemonBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivPokemonFront"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_dummy_poke"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:adjustViewBounds="true" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdH33"
+        app:layout_constraintGuide_percent=".33"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvName"
+        app:autoSizeMaxTextSize="20sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="Pikachu"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHeight"
+        app:autoSizeMaxTextSize="14sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleHeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center"
+        android:text="65"
+        android:textColor="@color/black_overlay" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvWeight"
+        app:autoSizeMaxTextSize="12sp"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleWeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center"
+        android:text="12"
+        android:textColor="@color/black_overlay" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDescription"
+        app:autoSizeMaxTextSize="15sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center"
+        android:text="@string/dummy_desc"
+        android:textColor="@color/black_overlay"
+        android:textSize="14sp" />
+
+    <com.pedrogomez.spacelensapp.view.ofertadetail.views.ProductoDetailView
+        android:id="@+id/tsfHp"
+        style="@style/Widget.Theme.MyListAplication.TitledStatusField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleStats"
+        app:tsfTitle="@string/stat_hp"
+        android:layout_width="0dp" />
+
+    <com.pedrogomez.spacelensapp.view.ofertadetail.views.ProductoDetailView
+        android:id="@+id/tsfAtk"
+        style="@style/Widget.Theme.MyListAplication.TitledStatusField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tsfHp"
+        app:tsfTitle="@string/stat_atk"
+        android:layout_width="0dp" />
+
+    <com.pedrogomez.spacelensapp.view.ofertadetail.views.ProductoDetailView
+        android:id="@+id/tsfDef"
+        style="@style/Widget.Theme.MyListAplication.TitledStatusField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tsfAtk"
+        app:tsfTitle="@string/stat_def"
+        android:layout_width="0dp" />
+
+    <com.pedrogomez.spacelensapp.view.ofertadetail.views.ProductoDetailView
+        android:id="@+id/tsfSpd"
+        style="@style/Widget.Theme.MyListAplication.TitledStatusField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tsfDef"
+        app:tsfTitle="@string/stat_spd"
+        android:layout_width="0dp" />
+
+    <com.pedrogomez.spacelensapp.view.ofertadetail.views.ProductoDetailView
+        android:id="@+id/tsfSpAtk"
+        style="@style/Widget.Theme.MyListAplication.TitledStatusField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tsfSpd"
+        app:tsfTitle="@string/stat_sp_atk"
+        android:layout_width="0dp" />
+
+    <com.pedrogomez.spacelensapp.view.ofertadetail.views.ProductoDetailView
+        android:id="@+id/tsfSpDef"
+        style="@style/Widget.Theme.MyListAplication.TitledStatusField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tsfSpAtk"
+        app:tsfTitle="@string/stat_sp_def"
+        android:layout_width="0dp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_left"
+        app:tint="@color/black_overlay"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_margin="16dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvId"
+        app:autoSizeMaxTextSize="24sp"
+        app:autoSizeMinTextSize="16sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:text="1"
+        android:textColor="@color/black_overlay"
+        android:textSize="28sp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
