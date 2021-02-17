@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.pedrogomez.spacelensapp.models.api.Product
 import com.pedrogomez.spacelensapp.models.api.toPresentationModel
 import com.pedrogomez.spacelensapp.models.view.ProductItem
-import com.pedrogomez.spacelensapp.repository.ProductosRepository
+import com.pedrogomez.spacelensapp.repository.ProductsApiRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancelChildren
@@ -14,7 +14,7 @@ import com.pedrogomez.spacelensapp.models.result.Result
 import com.pedrogomez.spacelensapp.models.view.Location
 
 class SharedProductsViewModel(
-    private val productosRepository: ProductosRepository
+    private val productsApiRepository: ProductsRepository
 ) : ViewModel(){
 
     val scope : CoroutineScope = CoroutineScope(
@@ -36,20 +36,14 @@ class SharedProductsViewModel(
             Result.LoadingMoreContent(true)
         )
         scope.launch {
-            val productList = productosRepository.getProductsData(
-                Location(1,1)
+            val productList = productsApiRepository.loadProducts(
+                    Location(1,1)
             )
             productsListStateApi.postValue(
-                    if(productList!=null){
-                        Result.Success(true)
-                    }else{
-                        Result.Error.RecoverableError("Check your internet connexion")
-                    }
+                Result.Success(true)
             )
             productsListLiveData.postValue(
-                productList?.products?.map(
-                    Product::toPresentationModel
-                )
+                    productList
             )
         }
 
@@ -62,6 +56,12 @@ class SharedProductsViewModel(
     override fun onCleared() {
         super.onCleared()
         scope.coroutineContext.cancelChildren()
+    }
+
+    interface ProductsRepository{
+
+        suspend fun loadProducts(location:Location):List<ProductItem>
+
     }
 
 }

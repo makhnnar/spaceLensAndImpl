@@ -1,7 +1,7 @@
 package com.pedrogomez.spacelensapp.di
 
 import com.pedrogomez.spacelensapp.R
-import com.pedrogomez.spacelensapp.repository.ProductosRepository
+import com.pedrogomez.spacelensapp.repository.ProductsApiRepository
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.auth.*
@@ -14,7 +14,7 @@ import org.koin.dsl.module
 val networkModule = module {
     single { okHttpKtor }
     single {
-        ProductosRepository(
+        ProductsApiRepository(
             get(),
             androidApplication().getString(R.string.url_api)
         )

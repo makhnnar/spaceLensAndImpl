@@ -8,7 +8,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import com.pedrogomez.spacelensapp.utils.extensions.print
 
-class ProductosRepository(
+class ProductsApiRepository(
     private val client : HttpClient,
     private val urlBase:String
     ) {
