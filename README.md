@@ -1,8 +1,5 @@
-# My Poke App
-A simple Pokemon App using kotlin and MVVM pattern.
-
-- API:
-    Pokemon Api's https://pokeapi.co/
+# My Shopping App
+A simple App using kotlin and MVVM pattern.
 
 - Main Dependencies:
     Ktor,
