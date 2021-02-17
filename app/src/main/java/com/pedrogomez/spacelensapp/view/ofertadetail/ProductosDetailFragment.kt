@@ -8,19 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.pedrogomez.spacelensapp.R
 import com.pedrogomez.spacelensapp.databinding.FragmentProductoDetailBinding
-import com.pedrogomez.spacelensapp.models.view.ProductItem
+import com.pedrogomez.spacelensapp.view.ofertadetail.views.ProductoDetailView
 import com.pedrogomez.spacelensapp.view.viewmodel.SharedProductsViewModel
+import org.koin.android.viewmodel.ext.android.getViewModel
 
 
-class ProductosDetailFragment : Fragment() {
+class ProductosDetailFragment : Fragment(),
+    ProductoDetailView.OnDetailActions{
 
     private lateinit var binding: FragmentProductoDetailBinding
 
-    private val sharedProductsViewModel : SharedProductsViewModel by activityViewModels()
-
-    private lateinit var productItem : ProductItem
+    private val sharedProductsViewModel by lazy {
+        requireParentFragment().getViewModel<SharedProductsViewModel>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,7 @@ class ProductosDetailFragment : Fragment() {
             false
         )
         val view = binding.root
+        binding.productoDetailView.onDetailActions = this
         sharedProductsViewModel.findedProductLiveData.observe(
             viewLifecycleOwner,
             Observer {
@@ -54,5 +60,9 @@ class ProductosDetailFragment : Fragment() {
             Uri.parse(url)
         )
         startActivity(browserIntent)
+    }
+
+    override fun onBackPressed() {
+        findNavController().navigate(R.id.action_productosDetailFragment_to_productosListFragment)
     }
 }

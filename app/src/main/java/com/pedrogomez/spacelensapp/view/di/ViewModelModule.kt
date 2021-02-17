@@ -1,4 +1,4 @@
-package com.pedrogomez.spacelensapp.ofertaslist.di
+package com.pedrogomez.spacelensapp.view.di
 
 import com.pedrogomez.spacelensapp.view.viewmodel.SharedProductsViewModel
 import org.koin.android.viewmodel.dsl.viewModel

@@ -1,7 +1,9 @@
 package com.pedrogomez.spacelensapp.models.api
 
 import com.pedrogomez.spacelensapp.models.view.ProductItem
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Product(
     val address: String,
     val attachment: Attachment,
@@ -12,11 +14,11 @@ data class Product(
     val description: String,
     val distance: Int,
     val is_private: String,
-    val lat: Int,
+    val lat: Long,
     val like_user: Boolean,
     val likes: Int,
     val location: Location,
-    val lon: Int,
+    val lon: Long,
     val offer: Boolean,
     val owner: String,
     val p_condition: String,

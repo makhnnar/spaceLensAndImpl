@@ -16,11 +16,14 @@ import com.pedrogomez.spacelensapp.models.view.ProductItem
 import com.pedrogomez.spacelensapp.utils.extensions.shortToast
 import com.pedrogomez.spacelensapp.models.result.Result
 import com.pedrogomez.spacelensapp.view.ofertaslist.view.ProductosListView
+import org.koin.android.viewmodel.ext.android.getViewModel
 
 class ProductosListFragment : Fragment(),
     ProductosListView.OnProductListActions{
 
-    private val sharedProductsViewModel : SharedProductsViewModel by activityViewModels()
+    private val sharedProductsViewModel by lazy {
+        requireParentFragment().getViewModel<SharedProductsViewModel>()
+    }
 
     private lateinit var binding: FragmentProductosListBinding
 
@@ -75,7 +78,9 @@ class ProductosListFragment : Fragment(),
         sharedProductsViewModel.productsListLiveData.observe(
                 viewLifecycleOwner,
                 Observer {
-                    binding.productsListView.setData(it.toList())
+                    it?.let{
+                        binding.productsListView.setData(it.toList())
+                    }
                 }
         )
     }

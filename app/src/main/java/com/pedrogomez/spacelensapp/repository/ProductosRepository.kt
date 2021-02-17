@@ -18,12 +18,14 @@ class ProductosRepository(
     ):ProductsList?{
         return try{
             val requestUrl = "${urlBase}latitude=${location.lat}&longitude=${location.lat}"
-            "Ktor_request getPokeDetailsByName: $requestUrl".print()
+            "Ktor_request getProductsData: $requestUrl".print()
             val response = client.request<ProductsList>(requestUrl) {
                 method = HttpMethod.Get
             }
+            "Ktor_request getProductsData: $response".print()
             response
         }catch (e : java.lang.Exception){
+            "Ktor_request getProductsData: ${e.message}".print()
             null
         }
     }

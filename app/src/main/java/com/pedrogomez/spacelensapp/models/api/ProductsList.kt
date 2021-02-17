@@ -1,7 +1,8 @@
 package com.pedrogomez.spacelensapp.models.api
 
-import com.pedrogomez.spacelensapp.models.view.ProductItem
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ProductsList(
     val code: String,
     val message_error: String,

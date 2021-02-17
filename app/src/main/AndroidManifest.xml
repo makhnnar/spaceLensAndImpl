@@ -24,11 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.pedrogomez.spacelensapp.view.ofertadetail.ProductosDetailFragment"
+            android:name=".view.MainActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.ofertaslist.ProductosListFragment"
-            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

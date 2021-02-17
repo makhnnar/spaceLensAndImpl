@@ -2,7 +2,7 @@ package com.pedrogomez.spacelensapp
 
 import android.app.Application
 import com.pedrogomez.spacelensapp.di.networkModule
-import com.pedrogomez.spacelensapp.ofertaslist.di.viewModelListModule
+import com.pedrogomez.spacelensapp.view.di.viewModelListModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -18,8 +18,8 @@ class SpaceLensAplication : Application() {
             androidLogger()
             modules(
                 listOf(
-                    viewModelListModule,
-                    networkModule
+                    networkModule,
+                    viewModelListModule
                 )
             )
         }
