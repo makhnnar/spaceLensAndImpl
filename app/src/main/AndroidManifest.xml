@@ -27,7 +27,7 @@
             android:name="com.pedrogomez.spacelensapp.view.ofertadetail.ProductosDetailFragment"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ofertaslist.ProductosListFragment"
+            android:name=".view.ofertaslist.ProductosListFragment"
             android:screenOrientation="portrait"/>
     </application>
 

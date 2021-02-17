@@ -4,20 +4,23 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pedrogomez.spacelensapp.R
 import com.pedrogomez.spacelensapp.databinding.ViewProductoListBinding
-import com.pedrogomez.spacelensapp.ofertaslist.listadapter.ProductoAdapter
-import com.pedrogomez.spacelensapp.utils.PageScrollListener
-import com.pedrogomez.spacelensapp.utils.extensions.print
+import com.pedrogomez.spacelensapp.models.view.ProductItem
+import com.pedrogomez.spacelensapp.view.ofertaslist.view.listadapter.ProductoAdapter
+import com.pedrogomez.spacelensapp.view.ofertaslist.view.listadapter.ProductoViewHolder
+import com.pedrogomez.spacelensapp.utils.extensions.remove
+import com.pedrogomez.spacelensapp.utils.extensions.show
 
-class ProductosListView : ConstraintLayout {
+class ProductosListView : ConstraintLayout,
+    ProductoViewHolder.OnClickItemListener{
 
     lateinit var binding : ViewProductoListBinding
 
     private lateinit var productoAdapter : ProductoAdapter
 
-    private lateinit var pageScrollListener : PageScrollListener
+    var onProductListActions : OnProductListActions? = null
 
     constructor(context: Context) : super(context) {
         init(null, 0)
@@ -34,8 +37,7 @@ class ProductosListView : ConstraintLayout {
     private fun init(attrs: AttributeSet?, defStyle: Int) {
         binding = ViewProductoListBinding.inflate(
             LayoutInflater.from(context),
-            this,
-            true
+            this
         )
         val a = context.obtainStyledAttributes(
             attrs,
@@ -43,50 +45,51 @@ class ProductosListView : ConstraintLayout {
             defStyle,
             0
         )
-
         initRecyclerView()
-        initListeners()
-        binding.btnToTop.hide()
-
         a.recycle()
-
     }
 
     private fun initRecyclerView() {
-        productoAdapter = ProductoAdapter(this@ProductosListFragment)
+        productoAdapter = ProductoAdapter(this)
         binding.rvPokeItems.apply{
             adapter = productoAdapter
-            layoutManager = GridLayoutManager(this@ProductosListFragment,3)
+            layoutManager = LinearLayoutManager(context)
         }
         binding.srlContainer.setOnRefreshListener {
-            pokeListViewModel.getListOfPokemons()
+            onProductListActions?.loadAgain()
         }
-        pageScrollListener = object : PageScrollListener(
-            binding.rvPokeItems.layoutManager as GridLayoutManager
-        ){
-            override fun onLoadMore(
-                currentPage: Int
-            ) {
-                "current page: $currentPage".print()
-                pokeListViewModel.loadMorePokemonsToList(
-                    currentPage
-                )
-            }
-
-            override fun scrollIsOnTop(isOnTop: Boolean) {
-                if(isOnTop){
-                    binding.btnToTop.hide()
-                }else{
-                    binding.btnToTop.show()
-                }
-            }
-        }
-        binding.rvPokeItems.addOnScrollListener(
-            pageScrollListener
-        )
         binding.btnToTop.setOnClickListener {
             binding.rvPokeItems.smoothScrollToPosition(0)
         }
+    }
+
+    fun hideBtnToTop(){
+        binding.btnToTop.hide()
+    }
+
+    fun showLoader(){
+        binding.srlContainer.isRefreshing = false
+        binding.srlContainer.isEnabled = false
+        binding.pbPokesLoading.show()
+    }
+
+    fun hideLoader(){
+        binding.srlContainer.isRefreshing = false
+        binding.srlContainer.isEnabled = true
+        binding.pbPokesLoading.remove()
+    }
+
+    fun setData(productItems: List<ProductItem>){
+        productoAdapter.setData(productItems)
+    }
+
+    interface OnProductListActions{
+        fun loadAgain()
+        fun goToItemDetail(data: ProductItem)
+    }
+
+    override fun goToItemDetail(data: ProductItem) {
+        onProductListActions?.goToItemDetail(data)
     }
 
 }

@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlinx-serialization'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -64,6 +65,7 @@ dependencies {
     implementation "io.ktor:ktor-client-android:$ktor_version"
     implementation "io.ktor:ktor-client-cio:$ktor_version"
     implementation "io.ktor:ktor-client-serialization-jvm:$ktor_version"
+    implementation "io.ktor:ktor-client-auth:$ktor_version"
 
     //koin
     implementation "org.koin:koin-android-viewmodel:$koin_version"
@@ -74,4 +76,8 @@ dependencies {
 
     //lotie
     implementation 'com.airbnb.android:lottie:3.4.0'
+
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }

@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import com.pedrogomez.spacelensapp.R
-import com.pedrogomez.spacelensapp.ofertaslist.ProductosListFragment
+import com.pedrogomez.spacelensapp.view.ofertaslist.ProductosListFragment
 
 class SplashActivity : AppCompatActivity() {
 

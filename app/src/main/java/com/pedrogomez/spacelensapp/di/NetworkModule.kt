@@ -4,6 +4,8 @@ import com.pedrogomez.spacelensapp.R
 import com.pedrogomez.spacelensapp.repository.ProductosRepository
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
+import io.ktor.client.features.auth.*
+import io.ktor.client.features.auth.providers.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import org.koin.android.ext.koin.androidApplication
@@ -26,5 +28,11 @@ private val okHttpKtor = HttpClient(CIO) {
             isLenient = true
             ignoreUnknownKeys = true
         })
+    }
+    install(Auth){
+        basic {
+            username = "test"
+            password = "Fcb7mPap"
+        }
     }
 }

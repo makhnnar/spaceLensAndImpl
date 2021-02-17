@@ -1,16 +1,16 @@
-package com.pedrogomez.spacelensapp.ofertaslist.listadapter
+package com.pedrogomez.spacelensapp.view.ofertaslist.view.listadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.pedrogomez.spacelensapp.models.PokemonData
+import com.pedrogomez.spacelensapp.models.view.ProductItem
 import com.pedrogomez.spacelensapp.utils.extensions.print
 
 class ProductoAdapter(
     private val onClickItemListener: ProductoViewHolder.OnClickItemListener
 ) : RecyclerView.Adapter<ProductoViewHolder>() {
 
-    private var items: ArrayList<PokemonData> = ArrayList()
+    private var items: ArrayList<ProductItem> = ArrayList()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -37,7 +37,7 @@ class ProductoAdapter(
 
     override fun getItemCount() = items.size
 
-    fun setData(newItems: List<PokemonData>?) {
+    fun setData(newItems: List<ProductItem>?) {
         newItems?.let {
             items.clear()
             items.addAll(it)

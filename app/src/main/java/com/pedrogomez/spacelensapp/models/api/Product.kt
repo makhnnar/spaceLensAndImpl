@@ -1,5 +1,7 @@
 package com.pedrogomez.spacelensapp.models.api
 
+import com.pedrogomez.spacelensapp.models.view.ProductItem
+
 data class Product(
     val address: String,
     val attachment: Attachment,
@@ -18,12 +20,30 @@ data class Product(
     val offer: Boolean,
     val owner: String,
     val p_condition: String,
-    val payment_method: String,
-    val price: Int,
+    val payment_method: String?,
+    val price: Long,
     val product_id: Int,
     val rating_amount: Int,
     val rating_product: Int,
-    val story_img: Any,
-    val story_url: Any,
+    val story_img: String?,
+    val story_url: String?,
     val title: String
 )
+
+fun Product.toPresentationModel() : ProductItem {
+    return ProductItem(
+        product_id,
+        likes,
+        address,
+        price,
+        currency,
+        p_condition,
+        category,
+        title,
+        description,
+        attachment.url,
+        attachment.thumbnail,
+        created,
+        owner
+    )
+}

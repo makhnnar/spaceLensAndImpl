@@ -1,4 +1,4 @@
-package com.pedrogomez.spacelensapp.ofertaslist.listadapter
+package com.pedrogomez.spacelensapp.view.ofertaslist.view.listadapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,10 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pedrogomez.spacelensapp.R
-import com.pedrogomez.spacelensapp.models.PokemonData
-import com.pedrogomez.spacelensapp.databinding.ViewHolderPokemonBinding
-import com.pedrogomez.spacelensapp.models.PokeType
-import com.pedrogomez.spacelensapp.utils.getDrawableResByType
+import com.pedrogomez.spacelensapp.databinding.ViewHolderProductoBinding
+import com.pedrogomez.spacelensapp.models.view.ProductItem
 
 class ProductoViewHolder(
     inflater: LayoutInflater,
@@ -23,42 +21,37 @@ class ProductoViewHolder(
 ) {
     private var context : Context
 
-    private var binding: ViewHolderPokemonBinding? = null
+    private var binding: ViewHolderProductoBinding? = null
 
     init {
-        binding = ViewHolderPokemonBinding.bind(itemView)
+        binding = ViewHolderProductoBinding.bind(itemView)
         context = parent.context
     }
 
     fun setData(
-        data: PokemonData,
+        data: ProductItem,
         onClickItemListener: OnClickItemListener
     ) {
         try{
             Glide.with(context)
                 .load(
-                    data.frontDefaultImg
+                    data.thumbnail
                 ).into(
-                    binding?.ivPokemon!!
+                    binding?.ivImgItem!!
                 )
         }catch (e:Exception){
 
         }
-        binding?.tvName?.text = data.name
-        binding?.clBgCard?.background = context.getDrawable(
-            getDrawableResByType(
-                    data.type?.get(0)?:PokeType.NORMAL
-            )
-        )
-        binding?.pokemonRowContainer?.setOnClickListener {
-            onClickItemListener.goToBookDetail(
+        binding?.tvName?.text = data.title
+        binding?.itemRowContainer?.setOnClickListener {
+            onClickItemListener.goToItemDetail(
                 data
             )
         }
     }
 
     interface OnClickItemListener{
-        fun goToBookDetail(data: PokemonData)
+        fun goToItemDetail(data: ProductItem)
     }
 
 }

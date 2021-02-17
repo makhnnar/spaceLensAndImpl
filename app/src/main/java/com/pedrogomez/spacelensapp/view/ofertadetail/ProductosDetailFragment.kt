@@ -7,28 +7,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.pedrogomez.spacelensapp.models.PokemonData
 import com.pedrogomez.spacelensapp.databinding.FragmentProductoDetailBinding
-import com.pedrogomez.spacelensapp.view.ofertadetail.viewmodel.ProductoDetailsViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.pedrogomez.spacelensapp.models.view.ProductItem
+import com.pedrogomez.spacelensapp.view.viewmodel.SharedProductsViewModel
 
 
 class ProductosDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentProductoDetailBinding
 
-    private val productoDetailsViewModel : ProductoDetailsViewModel by viewModel()
+    private val sharedProductsViewModel : SharedProductsViewModel by activityViewModels()
 
-    companion object {
-        const val POKE_DATA = "pokeData"
-    }
-
-    private lateinit var pokemonData : PokemonData
+    private lateinit var productItem : ProductItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pokemonData = intent.getSerializableExtra(POKE_DATA) as PokemonData
     }
 
     override fun onCreateView(
@@ -42,21 +37,15 @@ class ProductosDetailFragment : Fragment() {
             false
         )
         val view = binding.root
-        initObservers()
-        binding.btnToTop.hide()
-        pokeListViewModel.getListOfPokemons()
-        return view
-    }
-
-    private fun initObservers() {
-        productoDetailsViewModel.observeSpeciesDetaiData().observe(
-                this,
-                Observer {
-                    it?.let {
-                        binding.tvDescription.text = it.flavor_text_entries[0].flavor_text
-                    }
-                }
+        sharedProductsViewModel.findedProductLiveData.observe(
+            viewLifecycleOwner,
+            Observer {
+                binding.productoDetailView.setData(
+                    it
+                )
+            }
         )
+        return view
     }
 
     private fun openOnBrowser(url:String){

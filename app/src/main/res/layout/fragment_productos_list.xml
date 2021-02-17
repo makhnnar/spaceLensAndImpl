@@ -4,9 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ofertaslist.ProductosListFragment"
+    tools:context=".view.ofertaslist.ProductosListFragment"
     android:focusable="true"
     android:focusableInTouchMode="true">
+
+    <com.pedrogomez.spacelensapp.view.ofertaslist.view.ProductosListView
+        android:id="@+id/productsListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

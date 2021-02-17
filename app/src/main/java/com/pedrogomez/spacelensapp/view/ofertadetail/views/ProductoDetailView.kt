@@ -7,11 +7,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import com.pedrogomez.spacelensapp.R
 import com.pedrogomez.spacelensapp.databinding.ViewProductoDetailBinding
+import com.pedrogomez.spacelensapp.models.view.ProductItem
 import com.pedrogomez.spacelensapp.utils.extensions.print
 
 class ProductoDetailView : ConstraintLayout {
 
     lateinit var binding : ViewProductoDetailBinding
+
+    var onDetailActions : OnDetailActions? = null
 
     constructor(context: Context) : super(context) {
         init(null, 0)
@@ -28,8 +31,7 @@ class ProductoDetailView : ConstraintLayout {
     private fun init(attrs: AttributeSet?, defStyle: Int) {
         binding = ViewProductoDetailBinding.inflate(
             LayoutInflater.from(context),
-            this,
-            true
+            this
         )
         val a = context.obtainStyledAttributes(
                 attrs,
@@ -41,45 +43,29 @@ class ProductoDetailView : ConstraintLayout {
         a.recycle()
     }
 
-    fun setData(){
+    fun setData(productItem: ProductItem){
         try{
             Glide.with(this)
                 .load(
-                    pokemonData.frontDefaultImg
+                    productItem.fullImag
                 ).into(
-                    binding?.ivPokemonFront!!
+                    binding.ivPokemonFront
                 )
-            Glide.with(this)
-                .load(
-                    pokemonData.backDefaultImg
-                ).into(
-                    binding?.ivPokemonBack!!
-                )
-            pokeDetailsViewModel.getSpeciesDetails(
-                pokemonData.id
-            )
-            binding.tvName.text = pokemonData.name
-            val height = pokemonData.height/10.0f
-            val weight = pokemonData.weight/10.0f
-            binding.tvHeight.text = "$height m"
-            binding.tvWeight.text = "$weight kg"
-            binding.tvId.text = "#${pokemonData.id}"
-            binding.tsfHp.setValue(pokemonData.hp?:0)
-            binding.tsfAtk.setValue(pokemonData.attack?:0)
-            binding.tsfDef.setValue(pokemonData.defense?:0)
-            binding.tsfSpd.setValue(pokemonData.speed?:0)
-            binding.tsfSpAtk.setValue(pokemonData.specialAttack?:0)
-            binding.tsfSpDef.setValue(pokemonData.specialDefense?:0)
-            initTypes()
-            initTitleBgs()
+            binding.tvName.text = productItem.title
+            binding.tvDate.text = productItem.created
+            binding.tvPrice.text = "${productItem.price} ${productItem.currency}"
+            binding.tvDescription.text = productItem.description
+            binding.tvDir.text = productItem.address
+            binding.tvOwner.text = productItem.owner
         }catch (e: Exception){
             "bookData: error".print()
         }
-        initObservers()
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            onDetailActions?.onBackPressed()
         }
     }
 
-
+    interface OnDetailActions{
+        fun onBackPressed()
+    }
 }

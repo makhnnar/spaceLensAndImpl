@@ -13,11 +13,7 @@ class ProductosRepository(
     private val urlBase:String
     ) {
 
-    /**
-     * @param name {pokemon's name to find}
-     */
-    suspend fun getPokeDetailsByName(
-        name : String,
+    suspend fun getProductsData(
         location:Location
     ):ProductsList?{
         return try{

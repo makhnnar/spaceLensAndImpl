@@ -1,24 +1,26 @@
-package com.pedrogomez.spacelensapp.ofertaslist
+package com.pedrogomez.spacelensapp.view.ofertaslist
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.pedrogomez.spacelensapp.R
-import com.pedrogomez.spacelensapp.view.ofertadetail.ProductosDetailFragment
-import com.pedrogomez.spacelensapp.ofertaslist.listadapter.ProductoViewHolder
-import com.pedrogomez.spacelensapp.ofertaslist.viewmodel.ProductsListViewModel
 import com.pedrogomez.spacelensapp.databinding.FragmentProductosListBinding
+import com.pedrogomez.spacelensapp.view.ofertaslist.view.listadapter.ProductoViewHolder
+import com.pedrogomez.spacelensapp.view.viewmodel.SharedProductsViewModel
+import com.pedrogomez.spacelensapp.models.view.ProductItem
 import com.pedrogomez.spacelensapp.utils.extensions.shortToast
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.pedrogomez.spacelensapp.models.result.Result
+import com.pedrogomez.spacelensapp.view.ofertaslist.view.ProductosListView
 
 class ProductosListFragment : Fragment(),
-    ProductoViewHolder.OnClickItemListener{
+    ProductosListView.OnProductListActions{
 
-    private val productsListViewModel : ProductsListViewModel by viewModel()
+    private val sharedProductsViewModel : SharedProductsViewModel by activityViewModels()
 
     private lateinit var binding: FragmentProductosListBinding
 
@@ -38,107 +40,52 @@ class ProductosListFragment : Fragment(),
         )
         val view = binding.root
         initObservers()
-        binding.btnToTop.hide()
-        productsListViewModel.getListOfPokemons()
+        binding.productsListView.hideBtnToTop()
+        binding.productsListView.onProductListActions = this
+        sharedProductsViewModel.loadContent()
         return view
     }
 
     private fun initObservers(){
-        productsListViewModel.observeApiState().observe(
-            this,
-            Observer {
-                binding.srlContainer.isRefreshing = false
-                when (it) {
+        sharedProductsViewModel.productsListStateApi.observe(
+            viewLifecycleOwner,
+            Observer { result ->
+                when (result) {
                     is Result.Success -> {
-                        binding.pbPokesLoading.remove()
-                        binding.srlContainer.isEnabled = true
-                        pageScrollListener.enablePaging(true)
+                        binding.productsListView.hideLoader()
                     }
                     is Result.LoadingNewContent -> {
-                        binding.srlContainer.isEnabled = false
-                        pageScrollListener.initFields()
-                        pokemonsAdapter.clearData()
-                        hideKeyboard(binding.etSearchField)
-                        binding.pbPokesLoading.show()
+                        binding.productsListView.showLoader()
                     }
                     is Result.LoadingMoreContent -> {
-                        binding.srlContainer.isEnabled = false
-                        pageScrollListener.enablePaging(false)
-                        binding.pbPokesLoading.show()
+                        binding.productsListView.showLoader()
                     }
                     is Result.Error -> {
-                        shortToast(
-                                this,
+                        context?.let{
+                            shortToast(
+                                it,
                                 this.getString(R.string.search_error)
-                        )
-                        binding.pbPokesLoading.remove()
-                        binding.srlContainer.isEnabled = true
-                        pageScrollListener.enablePaging(true)
+                            )
+                        }
+                        binding.productsListView.hideLoader()
                     }
                 }
             }
         )
-        productsListViewModel.observeFindedApiState().observe(
-            this,
-            Observer {
-                binding.srlContainer.isRefreshing = false
-                when (it) {
-                    is Result.Success -> {
-                        binding.searchBtn.isClickable = true
-                        binding.searchBtn.isEnabled = true
-                        binding.pbPokesLoading.remove()
-                    }
-                    is Result.Error -> {
-                        binding.searchBtn.isClickable = true
-                        binding.searchBtn.isEnabled = true
-                        shortToast(
-                                this,
-                                this.getString(R.string.search_error)
-                        )
-                        binding.pbPokesLoading.remove()
-                    }
-                    else ->{
-                        binding.pbPokesLoading.show()
-                        binding.searchBtn.isClickable = false
-                        binding.searchBtn.isEnabled = false
-                        hideKeyboard(binding.etSearchField)
-                        binding.etSearchField.setText("")
-                    }
-                }
-            }
-        )
-        productsListViewModel.observePokemonData().observe(
-                this,
+        sharedProductsViewModel.productsListLiveData.observe(
+                viewLifecycleOwner,
                 Observer {
-                    pokemonsAdapter.setData(it.toList())
+                    binding.productsListView.setData(it.toList())
                 }
-        )
-        productsListViewModel.observeFindedPokemon().observe(
-            this,
-            Observer {
-                if(it!=null){
-                    goToBookDetail(it)
-                }else{
-                    shortToast(
-                        this@ProductosListFragment,
-                        this.getString(R.string.search_no_results)
-                    )
-                }
-            }
         )
     }
 
-    override fun goToBookDetail(data: PokemonData) {
-        val intent = Intent(
-            this,
-            ProductosDetailFragment::class.java
-        )
-        intent.putExtra(
-            ProductosDetailFragment.POKE_DATA,
-            data
-        )
-        startActivity(
-            intent
-        )
+    override fun loadAgain() {
+        sharedProductsViewModel.loadContent()
+    }
+
+    override fun goToItemDetail(data: ProductItem) {
+        sharedProductsViewModel.saveFindedProduct(data)
+        findNavController().navigate(R.id.action_productosListFragment_to_productosDetailFragment)
     }
 }

@@ -9,5 +9,10 @@
     android:orientation="vertical"
     tools:context=".view.ofertadetail.ProductosDetailFragment">
 
+    <com.pedrogomez.spacelensapp.view.ofertadetail.views.ProductoDetailView
+        android:id="@+id/productoDetailView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </ScrollView>
 
