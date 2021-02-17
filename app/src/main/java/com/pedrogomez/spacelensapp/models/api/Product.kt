@@ -36,6 +36,7 @@ fun Product.toPresentationModel() : ProductItem {
     return ProductItem(
         product_id,
         likes,
+        like_user,
         address,
         price,
         currency,

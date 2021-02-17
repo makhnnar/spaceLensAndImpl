@@ -43,6 +43,9 @@ class ProductoViewHolder(
 
         }
         binding?.tvName?.text = data.title
+        binding?.tvLikes?.text = "${data.likes}"
+        binding?.ivLikes?.isSelected = data.like_user
+        binding?.tvPrice?.text = "${data.price} ${data.currency}"
         binding?.itemRowContainer?.setOnClickListener {
             onClickItemListener.goToItemDetail(
                 data

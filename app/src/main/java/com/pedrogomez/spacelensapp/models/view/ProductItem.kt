@@ -5,6 +5,7 @@ import java.io.Serializable
 data class ProductItem(
     val product_id:Int,
     val likes:Int,
+    val like_user:Boolean,
     val address:String,
     val price:Long,
     val currency:String,
