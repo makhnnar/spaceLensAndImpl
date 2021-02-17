@@ -63,6 +63,6 @@ class ProductosDetailFragment : Fragment(),
     }
 
     override fun onBackPressed() {
-        findNavController().navigate(R.id.action_productosDetailFragment_to_productosListFragment)
+        requireActivity().onBackPressed()
     }
 }

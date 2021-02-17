@@ -9,11 +9,11 @@
     <string name="stat_spd"> SPD </string>
     <string name="stat_sp_atk"> SpATK </string>
     <string name="stat_sp_def"> SpDEF </string>
-    <string name="title_stats"> Stats </string>
-    <string name="title_types"> Types </string>
+    <string name="title_date_creation"> Date Publication </string>
+    <string name="title_direction"> Direction </string>
     <string name="title_desc"> Description </string>
     <string name="title_name"> Name </string>
-    <string name="title_h"> Height </string>
-    <string name="title_w"> Weight </string>
+    <string name="title_owner"> Owner </string>
+    <string name="title_price"> Price </string>
     <string name="dummy_desc">--- --- -- ----- --- -- -</string>
 </resources>

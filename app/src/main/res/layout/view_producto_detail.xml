@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tsTitle="@string/title_h"/>
+        app:tsTitle="@string/title_desc"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvDescription"
@@ -67,7 +67,7 @@
         android:layout_margin="8dp"
         android:fontFamily="@font/montserrat_regular"
         android:gravity="center"
-        android:text="65"
+        android:text="en un lugar muy lejano del que ya no me acuerdo"
         android:textColor="@color/black_overlay"
         app:autoSizeMaxTextSize="14sp"
         app:autoSizeMinTextSize="10sp"
@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDescription"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tsTitle="@string/title_w"/>
+        app:tsTitle="@string/title_price"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPrice"
@@ -110,7 +110,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvPrice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tsTitle="@string/title_desc"/>
+        app:tsTitle="@string/title_owner"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvOwner"
@@ -134,10 +134,10 @@
         android:id="@+id/tvTitleDir"
         android:layout_width="0dp"
         style="@style/Widget.Theme.MyListAplication.TitleSeccion"
-        app:layout_constraintTop_toBottomOf="@id/tvDescription"
+        app:layout_constraintTop_toBottomOf="@id/tvOwner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tsTitle="@string/title_types"/>
+        app:tsTitle="@string/title_direction"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvDir"
@@ -164,7 +164,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tsTitle="@string/title_stats" />
+        app:tsTitle="@string/title_date_creation" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvDate"
@@ -181,6 +181,23 @@
         app:autoSizeStepGranularity="1sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintTop_toBottomOf="@id/tvTitleDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/emptyView"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/black_overlay"
+        app:autoSizeMaxTextSize="15sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintTop_toBottomOf="@id/tvDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
